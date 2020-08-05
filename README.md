@@ -13,13 +13,13 @@ Timing package from perf, the PHP Extensible and Robust Framework.
 $clock = new \perf\Timing\RealTimeClock();
 
 // Will output something like "2015-01-23"
-echo $clock->getDate();
+echo $clock->getDateString();
 
 // Will output something like "15:16:17"
-echo $clock->getTime();
+echo $clock->getTimeString();
 
 // Will output something like "2015-01-23 15:16:17"
-echo $clock->getDateTime();
+echo $clock->getDateTimeString();
 
 // Will output something like "123456789"
 echo $clock->getTimestamp();

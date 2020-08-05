@@ -2,7 +2,7 @@
 	"name"        : "perf/timing",
 	"type"        : "library",
 	"license"     : "MIT",
-	"description" : "Timing package from perf, the PHP Extensible and Robust Framework",
+	"description" : "Allows to retrieve and measure time.",
 	"require"     : {
 		"php" : ">=5.3.3"
 	},
