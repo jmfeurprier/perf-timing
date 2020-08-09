@@ -1,39 +1,63 @@
 perf timing
 ===========
 
-Timing package from perf, the PHP Extensible and Robust Framework.
+Timing package.
+
+## Installation & Requirements
+
+Install with [Composer](http://getcomposer.org):
+
+```shell script
+composer require perf/timing
+```
 
 ## Usage
 
 ### Clock
 
+`Clock` allows to retrieve current time and date.
+
+Injecting it in your application will allow to ease the testing of time-related operations (mocking its `ClockInterface` interface and making its return values predictable).
+
 ```php
 <?php
 
-$clock = new \perf\Timing\RealTimeClock();
+use perf\Timing\Clock;
 
-// Will output something like "2015-01-23"
+$clock = new Clock();
+
+// Will output something like "2020-01-23"
 echo $clock->getDateString();
 
 // Will output something like "15:16:17"
 echo $clock->getTimeString();
 
-// Will output something like "2015-01-23 15:16:17"
+// Will output something like "2020-01-23 15:16:17"
 echo $clock->getDateTimeString();
 
 // Will output something like "123456789"
 echo $clock->getTimestamp();
 
-// Will output something like "123456789.0123 "
+// Will output something like "123456789.0123"
 echo $clock->getMicrotime();
 ```
 
 ### Timer
 
+`Timer` allows to mesure elapsed time (in seconds, with microsecond precision).
+It can be started (`$timer->start()`), stopped (`$timer->stop()`), reset (`$timer->reset()`), and restarted (`$timer->restart()`). You can also query elapsed time (`$timer->getElapsed()`).
+
 ```php
 <?php
 
-$timer = new \perf\Timing\RealTimeTimer();
+use perf\Timing\Timer;
+
+$timer = new Timer();
+
+sleep(1);
+
+// Will output something like "0.0"
+echo $timer->getElapsed();
 
 $timer->start();
 
@@ -41,6 +65,10 @@ sleep(1);
 
 // Will output something like "1.0023456"
 echo $timer->getElapsed();
+
+sleep(1);
+
+$timer->stop();
 
 sleep(1);
 
@@ -57,10 +85,12 @@ echo $timer->getElapsed();
 sleep(1);
 
 // Will output something like "2.0034567"
-echo $timer->getElapsedAndRestart();
+echo $timer->getElapsed();
+
+$timer->reset();
 
 sleep(1);
 
-// Will output something like "1.0023456"
+// Will output something like "0.0"
 echo $timer->getElapsed();
 ```
